@@ -34,7 +34,7 @@ const Footer: React.FC<FooterProps> = ({
   return (
     <footer 
       id="contact" 
-      className="relative mx-0 my-[70px] px-[10px] py-12"
+      className="relative mx-0 mt-0 mb-[70px] px-[10px] py-12"
     >
       <div className="absolute inset-0 -z-10">
         <img 
