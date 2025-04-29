@@ -18,7 +18,20 @@ const Manifesto: React.FC<ManifestoProps> = ({
           </FadeIn>
           
           <FadeIn delay={100}>
-            <p className="text-xl md:text-2xl leading-relaxed mb-12 font-serif text-left whitespace-pre-line">{"There's no grand plan here.\nI like making things and writing down whatever makes me stop and think for half a second.\n\nSometimes it turns into a cool project.\nSometimes it ends up as a half-baked idea sitting in my notes app.\n\nMy goal now is to let go of trying to have the \"perfect process\" for everything.\nI'm just gonna try to make stuff and worry about naming it later."}</p>
+            <div className="text-xl md:text-2xl leading-relaxed mb-12 font-serif text-left">
+              <p>There's no grand plan here.</p>
+              <p>I like making things and writing down whatever makes me stop and think for half a second.</p>
+              
+              <div className="h-2"></div>
+              
+              <p>Sometimes it turns into a cool project.</p>
+              <p>Sometimes it ends up as a half-baked idea sitting in my notes app.</p>
+              
+              <div className="h-2"></div>
+              
+              <p>My goal now is to let go of trying to have the "perfect process" for everything.</p>
+              <p>I'm just gonna try to make stuff and worry about naming it later.</p>
+            </div>
           </FadeIn>
           
           <FadeIn delay={200}>
