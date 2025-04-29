@@ -9,13 +9,11 @@ import Community from '../components/Community';
 import Connecting from '../components/Connecting';
 import FoundersInSearch from '../components/FoundersInSearch';
 import Footer from '../components/Footer';
-import HeroImage from '../components/HeroImage';
 
 const Index = () => {
   return (
-    <div>
+    <div className="w-full overflow-hidden">
       <Header />
-      <HeroImage />
       <Hero />
       <About />
       <InvestmentApproach />

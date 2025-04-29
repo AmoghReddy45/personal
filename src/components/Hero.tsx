@@ -2,15 +2,21 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
+
 interface HeroProps {
   className?: string;
 }
+
 const Hero: React.FC<HeroProps> = ({
   className
 }) => {
-  return <section className={cn('relative min-h-screen flex items-center overflow-hidden', className)}>
-      <div className="absolute inset-0 -z-10 w-full">
-        <img src="/lovable-uploads/860a48fd-65b5-4fa8-ada8-36f19fc7e9e5.png" alt="Classical Greek architecture landscape painting" className="w-full h-full object-cover" />
+  return <section className={cn('relative min-h-screen flex items-center overflow-hidden w-full', className)}>
+      <div className="absolute inset-0 -z-10 w-full overflow-hidden">
+        <img 
+          src="/lovable-uploads/860a48fd-65b5-4fa8-ada8-36f19fc7e9e5.png" 
+          alt="Classical Greek architecture landscape painting" 
+          className="w-[100vw] h-full object-cover" 
+        />
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
       
@@ -29,4 +35,5 @@ const Hero: React.FC<HeroProps> = ({
       </div>
     </section>;
 };
+
 export default Hero;
