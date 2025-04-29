@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { NavLink } from 'react-router-dom';
@@ -72,7 +73,7 @@ const Header: React.FC<HeaderProps> = ({
           scrollToSection('investment');
           setIsMobileMenuOpen(false);
         }}>
-            Investment
+            Current
           </button>
         </nav>
       </div>
@@ -91,7 +92,7 @@ const NavLinks: React.FC<NavLinksProps> = ({
       Thesis
     </button>
     <button className="text-sm font-medium hover:text-orangery-500 transition-colors" onClick={() => scrollToSection('investment')}>
-      Investment
+      Current
     </button>
   </>;
 export default Header;

@@ -53,7 +53,7 @@ const Footer: React.FC<FooterProps> = ({ className }) => {
               onClick={() => scrollToSection('investment')} 
               className="text-sm hover:text-orangery-500 transition-colors"
             >
-              Investment
+              Current
             </button>
           </div>
           
