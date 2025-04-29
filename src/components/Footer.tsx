@@ -26,7 +26,7 @@ const Footer: React.FC<FooterProps> = ({
       }
     }
   };
-  return <footer id="contact" className="relative mx-0 mt-0 mb-[70px] px-[10px] py-[75px] bg-[#0c220c]">
+  return <footer id="contact" className="relative mx-0 mt-0 mb-[70px] px-[10px] bg-[#0c220c] py-[100px]">
       <div className="absolute inset-0 -z-10">
         <img src="/lovable-uploads/6ee93915-9114-49df-859b-27bd734af92c.png" alt="Footer background" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/20"></div>
