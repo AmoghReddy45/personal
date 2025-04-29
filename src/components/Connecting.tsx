@@ -23,7 +23,8 @@ const Connecting: React.FC<ConnectingProps> = ({
           </FadeIn>
           
           <FadeIn delay={100}>
-            
+            {/* Empty FadeIn - Adding an empty div as children to fix the error */}
+            <div></div>
           </FadeIn>
           
           <div className="space-y-4 mb-16">
