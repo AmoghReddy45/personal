@@ -36,6 +36,15 @@ const Footer: React.FC<FooterProps> = ({
       id="contact" 
       className="relative mx-0 my-[70px] px-[10px] py-12 bg-blue-500"
     >
+      <div className="absolute inset-0 -z-10">
+        <img 
+          src="/lovable-uploads/6ee93915-9114-49df-859b-27bd734af92c.png" 
+          alt="Footer background" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-blue-500/70"></div>
+      </div>
+      
       <div className="container relative z-10 mx-auto px-4 md:px-6">
         <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
