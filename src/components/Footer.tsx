@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
 import GreekArchitecture from './images/GreekArchitecture';
+import ClassicalBuilding from './images/ClassicalBuilding';
 
 interface FooterProps {
   className?: string;
@@ -41,7 +42,9 @@ const Footer: React.FC<FooterProps> = ({
       <div className="container relative z-10 mx-auto px-4 md:px-6">
         <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
-            
+            <div className="w-24 h-24 rounded-full overflow-hidden">
+              <ClassicalBuilding />
+            </div>
           </div>
           
           <div className="flex space-x-6 mb-4 md:mb-0 bg-white/70 px-4 py-2 rounded">
