@@ -1,56 +1,30 @@
 
-import React, { useEffect } from 'react';
-import Header from '@/components/Header';
-import Hero from '@/components/Hero';
-import Manifesto from '@/components/Manifesto';
-import Gap from '@/components/Gap';
-import FoundersInSearch from '@/components/FoundersInSearch';
-import InvestmentApproach from '@/components/InvestmentApproach';
-import Community from '@/components/Community';
-import About from '@/components/About';
-import Footer from '@/components/Footer';
+import React from 'react';
+import Header from '../components/Header';
+import Hero from '../components/Hero';
+import About from '../components/About';
+import InvestmentApproach from '../components/InvestmentApproach';
+import Manifesto from '../components/Manifesto';
+import Community from '../components/Community';
+import Connecting from '../components/Connecting';
+import FoundersInSearch from '../components/FoundersInSearch';
+import Footer from '../components/Footer';
+import HeroImage from '../components/HeroImage';
 
 const Index = () => {
-  useEffect(() => {
-    // Smooth scroll behavior for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href')?.substring(1);
-        if (!targetId) return;
-        
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          window.scrollTo({
-            top: targetElement.offsetTop - 80, // Account for header height
-            behavior: 'smooth'
-          });
-        }
-      });
-    });
-    
-    return () => {
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.removeEventListener('click', function (e) {
-          // Cleanup
-        });
-      });
-    };
-  }, []);
-  
   return (
-    <main className="relative">
+    <div>
       <Header />
+      <HeroImage />
       <Hero />
-      <Manifesto />
-      <Gap />
-      <FoundersInSearch />
-      <InvestmentApproach />
       <About />
+      <InvestmentApproach />
+      <Manifesto />
       <Community />
+      <Connecting />
+      <FoundersInSearch />
       <Footer />
-    </main>
+    </div>
   );
 };
 
