@@ -18,7 +18,7 @@ const Manifesto: React.FC<ManifestoProps> = ({
           </FadeIn>
           
           <FadeIn delay={100}>
-            <div className="text-xl md:text-2xl leading-relaxed mb-12 font-serif text-left">
+            <div className="text-lg md:text-xl leading-relaxed mb-12 font-serif text-left">
               <p>There's no grand plan here.</p>
               <p>I like making things and writing down whatever makes me stop and think for half a second.</p>
               
