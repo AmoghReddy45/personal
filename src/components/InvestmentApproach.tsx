@@ -33,14 +33,14 @@ Right now, I'm focused on refining my backend architecture skills, experimenting
         
         <div className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
           {investmentTiers.map((tier, index) => <FadeIn key={index} delay={150 + index * 50}>
-              <Card className="border-2 border-gray-300 shadow-md h-full hover:border-gray-400 transition-colors">
+              <Card className="border border-gray-200 shadow-sm h-full hover:border-gray-300 transition-colors">
                 <CardContent className="p-8">
                   <h3 className="text-xl font-medium mb-4 font-serif">{tier.title}</h3>
                   <p className="text-muted-foreground mb-4">{tier.description}</p>
-                  {index === 0 && <div className="mt-4 pt-4 border-t border-gray-200">
+                  {index === 0 && <div className="mt-4 pt-4 border-t border-gray-100">
                       <p className="text-sm font-medium">Applied intelligence Security for SMBs</p>
                     </div>}
-                  {index === 1 && <div className="mt-4 pt-4 border-t border-gray-200">
+                  {index === 1 && <div className="mt-4 pt-4 border-t border-gray-100">
                       <p className="text-sm font-medium">I Like to Write</p>
                     </div>}
                 </CardContent>
