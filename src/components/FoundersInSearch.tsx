@@ -1,10 +1,13 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
 import { Card, CardContent } from '@/components/ui/card';
+
 interface FoundersInSearchProps {
   className?: string;
 }
+
 const FoundersInSearch: React.FC<FoundersInSearchProps> = ({
   className
 }) => {
@@ -21,6 +24,12 @@ const FoundersInSearch: React.FC<FoundersInSearchProps> = ({
     title: "Gender-Diverse Teams",
     description: "Backing women leaders and mixed-gender founding teams who bring fresh perspectives and collaborative approaches to building transformative companies."
   }];
-  return;
+  
+  return (
+    <div className={cn("py-20 md:py-32", className)}>
+      {/* Component content would go here */}
+    </div>
+  );
 };
+
 export default FoundersInSearch;

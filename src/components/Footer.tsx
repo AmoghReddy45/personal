@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -41,6 +42,9 @@ const Footer: React.FC<FooterProps> = ({
             <button onClick={() => scrollToSection('investment')} className="text-sm hover:text-orangery-500 transition-colors">
               Current
             </button>
+            <Link to="/blog" className="text-sm hover:text-orangery-500 transition-colors">
+              Blog
+            </Link>
           </div>
           
           

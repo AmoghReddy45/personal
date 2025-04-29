@@ -75,6 +75,11 @@ const Header: React.FC<HeaderProps> = ({
         }}>
             Current
           </button>
+          <NavLink to="/blog" className={({
+          isActive
+        }) => cn("hover:text-orangery-500 transition-colors", isActive && "text-orangery-500 font-semibold")} onClick={() => setIsMobileMenuOpen(false)}>
+            Blog
+          </NavLink>
         </nav>
       </div>
     </header>;
@@ -94,5 +99,10 @@ const NavLinks: React.FC<NavLinksProps> = ({
     <button className="text-sm font-medium hover:text-orangery-500 transition-colors" onClick={() => scrollToSection('investment')}>
       Current
     </button>
+    <NavLink to="/blog" className={({
+    isActive
+  }) => cn("text-sm font-medium hover:text-orangery-500 transition-colors", isActive && "text-orangery-500 font-semibold")}>
+      Blog
+    </NavLink>
   </>;
 export default Header;
