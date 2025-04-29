@@ -1,10 +1,13 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
 import { Card, CardContent } from '@/components/ui/card';
+
 interface InvestmentApproachProps {
   className?: string;
 }
+
 const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
   className
 }) => {
@@ -15,6 +18,7 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
     title: "Seed Fund",
     description: "€200K–€400K investments in 15+ startups to support scaling, market expansion, and team growth, with follow-on capital available."
   }];
+
   return <section id="investment" className={cn('py-20 bg-gray-50', className)}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto mb-16">
@@ -23,7 +27,7 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
           </FadeIn>
           <FadeIn delay={100}>
             <p className="text-lg text-center text-muted-foreground mb-12">I spend most of my time building software projects, designing websites, writing about the things that catch my attention, and studying systems—whether technical, cultural, or personal.
-Right now, I’m focused on refining my backend architecture skills, experimenting with AI workflows, and writing longer-form essays that sit somewhere between blog post and research note.</p>
+Right now, I'm focused on refining my backend architecture skills, experimenting with AI workflows, and writing more casually - without the pressure of perfection.</p>
           </FadeIn>
         </div>
         
@@ -46,4 +50,5 @@ Right now, I’m focused on refining my backend architecture skills, experimenti
       </div>
     </section>;
 };
+
 export default InvestmentApproach;
