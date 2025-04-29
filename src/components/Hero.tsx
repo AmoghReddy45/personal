@@ -20,7 +20,7 @@ const Hero: React.FC<HeroProps> = ({
           </FadeIn>
           
           <FadeIn delay={300}>
-            <p className="text-lg md:text-xl text-white/90 mb-4">i like to make things</p>
+            <p className="text-lg md:text-xl text-white/90 mb-4">sometimes i do things.</p>
             <p className="text-lg md:text-xl text-white/90 mb-8">
           </p>
           </FadeIn>
