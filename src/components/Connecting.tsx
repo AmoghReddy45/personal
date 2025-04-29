@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
@@ -8,7 +9,7 @@ const Connecting: React.FC<ConnectingProps> = ({
   className
 }) => {
   const founderTypes = ["Hire Me (i can build things) -> reddy.amogh2004@gmail.com", "my instagram's cool too -> @am.reddywbsgdhbe"];
-  return <section id="connecting" className={cn('py-20 bg-gray-50', className)}>
+  return <section id="connecting" className={cn('py-20 bg-gray-50 mb-16', className)}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto">
           <FadeIn>
