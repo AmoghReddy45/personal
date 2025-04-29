@@ -10,12 +10,12 @@ interface HeroProps {
 const Hero: React.FC<HeroProps> = ({
   className
 }) => {
-  return <section className={cn('relative min-h-screen flex items-center w-full', className)}>
+  return <section className={cn('relative min-h-[110vh] flex items-center w-full', className)}>
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <img 
           src="/lovable-uploads/860a48fd-65b5-4fa8-ada8-36f19fc7e9e5.png" 
           alt="Classical Greek architecture landscape painting" 
-          className="w-full h-full object-cover object-center" 
+          className="w-[100vw] h-[110vh] object-cover object-center" 
         />
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
