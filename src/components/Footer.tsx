@@ -34,16 +34,10 @@ const Footer: React.FC<FooterProps> = ({
   return (
     <footer 
       id="contact" 
-      className="relative mx-0 my-[70px] px-[10px] py-12"
-      style={{
-        backgroundImage: "url('/lovable-uploads/6ee93915-9114-49df-859b-27bd734af92c.png')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}
+      className="relative mx-0 my-[70px] px-[10px] py-12 bg-blue-500"
     >
       <div className="container relative z-10 mx-auto px-4 md:px-6">
-        <div className="border-t border-gray-100 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
             
           </div>
@@ -66,8 +60,6 @@ const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
       </div>
-      {/* Semi-transparent overlay */}
-      <div className="absolute inset-0 bg-white/10 backdrop-blur-[1px]"></div>
     </footer>
   );
 };
