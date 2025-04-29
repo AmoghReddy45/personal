@@ -12,7 +12,7 @@ import Footer from '../components/Footer';
 
 const Index = () => {
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-screen overflow-x-hidden">
       <Header />
       <Hero />
       <About />
