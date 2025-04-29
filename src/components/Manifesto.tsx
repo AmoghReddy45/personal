@@ -10,7 +10,7 @@ interface ManifestoProps {
 const Manifesto: React.FC<ManifestoProps> = ({
   className
 }) => {
-  return <section id="thesis" className={cn('py-20 bg-white', className)}>
+  return <section id="thesis" className={cn('py-20 bg-gray-50', className)}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto">
           <FadeIn>

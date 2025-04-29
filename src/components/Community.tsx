@@ -1,10 +1,13 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
 import { Card, CardContent } from '@/components/ui/card';
+
 interface CommunityProps {
   className?: string;
 }
+
 const Community: React.FC<CommunityProps> = ({
   className
 }) => {
@@ -15,6 +18,12 @@ const Community: React.FC<CommunityProps> = ({
     title: "Media",
     description: "Media + content to build the narrative around technology and diverse teams - and help them build momentum"
   }];
-  return;
+  
+  return (
+    <div className={className}>
+      {/* Empty component */}
+    </div>
+  );
 };
+
 export default Community;

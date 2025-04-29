@@ -19,7 +19,7 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
     description: "From biryani to eyeballs to fitness—I write whatever comes to mind. This site is going to be a collection of my thoughts and journey."
   }];
 
-  return <section id="investment" className={cn('py-20 bg-gray-50', className)}>
+  return <section id="investment" className={cn('py-20 bg-white', className)}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto mb-16">
           <FadeIn>
