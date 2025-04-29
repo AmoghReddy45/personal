@@ -1,9 +1,12 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
+
 interface AboutProps {
   className?: string;
 }
+
 const About = () => {
   return <section className={cn('py-20 md:py-32 bg-white', 'text-orangery-900')}>
           
@@ -20,8 +23,8 @@ const About = () => {
               </FadeIn>
               <FadeIn delay={300}>
                 <p className="text-md md:text-lg text-gray-600">My work spans frontend development, backend architecture, AI systems, and storytelling—with one common thread: intentionality.
-
-Whether I’m optimizing microservices or writing about the cultural legacy of Sherlock Holmes, my goal is the same—understand the invisible systems and build something meaningful from them.</p>
+                <br /><br />
+Whether I'm optimizing microservices or writing about the cultural legacy of Sherlock Holmes, my goal is the same—understand the invisible systems and build something meaningful from them.</p>
               </FadeIn>
             </div>
             
@@ -33,4 +36,5 @@ Whether I’m optimizing microservices or writing about the cultural legacy of S
           </div>
     </section>;
 };
+
 export default About;
