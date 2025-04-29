@@ -24,6 +24,7 @@ const About = () => {
               <FadeIn delay={300}>
                 <p className="text-md md:text-lg text-gray-600">My work spans frontend development, backend architecture, AI systems, and storytelling—with one common thread: intentionality.
                 <br />
+                <span className="block h-2"></span>
 Whether I'm optimizing microservices or writing about the cultural legacy of Sherlock Holmes, my goal is the same—understand the invisible systems and build something meaningful from them.</p>
               </FadeIn>
             </div>
