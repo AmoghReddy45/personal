@@ -34,7 +34,7 @@ const Footer: React.FC<FooterProps> = ({
   return (
     <footer 
       id="contact" 
-      className="relative mx-0 my-[70px] px-[10px] py-12 bg-blue-500"
+      className="relative mx-0 my-[70px] px-[10px] py-12"
     >
       <div className="absolute inset-0 -z-10">
         <img 
@@ -42,7 +42,7 @@ const Footer: React.FC<FooterProps> = ({
           alt="Footer background" 
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-blue-500/70"></div>
+        <div className="absolute inset-0 bg-black/20"></div>
       </div>
       
       <div className="container relative z-10 mx-auto px-4 md:px-6">
