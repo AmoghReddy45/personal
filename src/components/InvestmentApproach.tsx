@@ -1,13 +1,10 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
 import { Card, CardContent } from '@/components/ui/card';
-
 interface InvestmentApproachProps {
   className?: string;
 }
-
 const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
   className
 }) => {
@@ -18,7 +15,6 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
     title: "Seed Fund",
     description: "€200K–€400K investments in 15+ startups to support scaling, market expansion, and team growth, with follow-on capital available."
   }];
-
   return <section id="investment" className={cn('py-20 bg-gray-50', className)}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto mb-16">
@@ -38,7 +34,7 @@ Right now, I'm focused on refining my backend architecture skills, experimenting
                   <h3 className="text-xl font-medium mb-4 font-serif">{tier.title}</h3>
                   <p className="text-muted-foreground mb-4">{tier.description}</p>
                   {index === 0 && <div className="mt-4 pt-4 border-t border-gray-100">
-                      <p className="text-sm font-medium">16-week acceleration program</p>
+                      <p className="text-sm font-medium">Applied intelligence Security for SMBs</p>
                     </div>}
                   {index === 1 && <div className="mt-4 pt-4 border-t border-gray-100">
                       <p className="text-sm font-medium">Follow-on capital available</p>
@@ -50,5 +46,4 @@ Right now, I'm focused on refining my backend architecture skills, experimenting
       </div>
     </section>;
 };
-
 export default InvestmentApproach;
