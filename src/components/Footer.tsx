@@ -1,20 +1,16 @@
-
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
 import ClassicalBuilding from './images/ClassicalBuilding';
-
 interface FooterProps {
   className?: string;
 }
-
 const Footer: React.FC<FooterProps> = ({
   className
 }) => {
   const location = useLocation();
   const isBlogPage = location.pathname === '/blog';
-
   const scrollToSection = (id: string) => {
     if (id === 'home') {
       window.scrollTo({
@@ -31,7 +27,6 @@ const Footer: React.FC<FooterProps> = ({
       }
     }
   };
-
   return <footer id="contact" className="relative mx-0 mt-0 mb-0 px-[10px] bg-transparent py-[100px]">
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="w-full h-full relative">
@@ -46,15 +41,15 @@ const Footer: React.FC<FooterProps> = ({
             {/* Circular element has been removed */}
           </div>
           
-          <div className="flex space-x-6 mb-4 md:mb-0 bg-white/70 px-4 py-2 rounded">
+          <div className="flex space-x-6 mb-4 md:mb-0 px-4 py-2 rounded bg-transparent">
             {!isBlogPage && <>
-                <button onClick={() => scrollToSection('home')} className="text-sm hover:text-orangery-500 transition-colors">
+                <button onClick={() => scrollToSection('home')} className="text-sm transition-colors text-slate-50">
                   Home
                 </button>
-                <button onClick={() => scrollToSection('thesis')} className="text-sm hover:text-orangery-500 transition-colors">
+                <button onClick={() => scrollToSection('thesis')} className="text-sm transition-colors text-slate-50">
                   Thesis
                 </button>
-                <button onClick={() => scrollToSection('investment')} className="text-sm hover:text-orangery-500 transition-colors">
+                <button onClick={() => scrollToSection('investment')} className="text-sm transition-colors text-slate-50">
                   Current
                 </button>
               </>}
@@ -66,5 +61,4 @@ const Footer: React.FC<FooterProps> = ({
       </div>
     </footer>;
 };
-
 export default Footer;
