@@ -7,7 +7,6 @@ import InvestmentApproach from '../components/InvestmentApproach';
 import Manifesto from '../components/Manifesto';
 import Community from '../components/Community';
 import Connecting from '../components/Connecting';
-import FoundersInSearch from '../components/FoundersInSearch';
 import Footer from '../components/Footer';
 
 const Index = () => {
@@ -20,7 +19,6 @@ const Index = () => {
       <InvestmentApproach />
       <Community />
       <Connecting />
-      <FoundersInSearch />
       <Footer />
     </div>
   );
