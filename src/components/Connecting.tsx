@@ -1,20 +1,13 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
-
 interface ConnectingProps {
   className?: string;
 }
-
 const Connecting: React.FC<ConnectingProps> = ({
   className
 }) => {
-  const founderTypes = [
-    "Hire Me (i can build things) -> reddy.amogh2004@gmail.com", 
-    "my instagram's cool too -> @am.reddywbsgdhbe"
-  ];
-  
+  const founderTypes = ["Hire Me (i can build things) -> reddy.amogh2004@gmail.com", "my instagram's cool too -> @am.reddywbsgdhbe"];
   return <section id="connecting" className={cn('py-20 bg-gray-50', className)}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto">
@@ -31,7 +24,7 @@ const Connecting: React.FC<ConnectingProps> = ({
             {founderTypes.map((type, index) => <FadeIn key={index} delay={150 + index * 50}>
                 <div className="flex items-start">
                   <span className="text-orangery-500 mr-3 mt-1">—</span>
-                  <p className="text-muted-foreground text-base">{type}</p>
+                  <p className="text-muted-foreground text-base font-semibold">{type}</p>
                 </div>
               </FadeIn>)}
           </div>
@@ -39,5 +32,4 @@ const Connecting: React.FC<ConnectingProps> = ({
       </div>
     </section>;
 };
-
 export default Connecting;
