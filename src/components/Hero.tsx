@@ -15,7 +15,7 @@ const Hero: React.FC<HeroProps> = ({
         <img 
           src="/lovable-uploads/860a48fd-65b5-4fa8-ada8-36f19fc7e9e5.png" 
           alt="Classical Greek architecture landscape painting" 
-          className="w-[100vw] h-[100vh] object-cover object-center" 
+          className="w-full h-full object-cover object-center" 
         />
         <div className="absolute inset-0 bg-black/30"></div>
       </div>
