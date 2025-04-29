@@ -36,7 +36,7 @@ const Footer: React.FC<FooterProps> = ({
       id="contact" 
       className="relative mx-0 my-[70px] px-[10px] py-12"
       style={{
-        backgroundImage: "url('/lovable-uploads/b7c4c9e7-966a-4d3c-bb86-88bdd6713551.png')",
+        backgroundImage: "url('/lovable-uploads/6ee93915-9114-49df-859b-27bd734af92c.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'

@@ -1,10 +1,13 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
 import { Card, CardContent } from '@/components/ui/card';
+
 interface FoundersInSearchProps {
   className?: string;
 }
+
 const FoundersInSearch: React.FC<FoundersInSearchProps> = ({
   className
 }) => {
@@ -21,6 +24,28 @@ const FoundersInSearch: React.FC<FoundersInSearchProps> = ({
     title: "Gender-Diverse Teams",
     description: "Backing women leaders and mixed-gender founding teams who bring fresh perspectives and collaborative approaches to building transformative companies."
   }];
-  return;
+  
+  return (
+    <div className={cn("py-12", className)}>
+      <div className="container mx-auto px-4">
+        <FadeIn>
+          <h2 className="text-3xl font-bold mb-8">Founders We Search For</h2>
+        </FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {founderTypes.map((type, index) => (
+            <FadeIn key={index} delay={index * 0.1}>
+              <Card className="h-full">
+                <CardContent className="p-6">
+                  <h3 className="text-xl font-semibold mb-2">{type.title}</h3>
+                  <p className="text-gray-600">{type.description}</p>
+                </CardContent>
+              </Card>
+            </FadeIn>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 };
+
 export default FoundersInSearch;
