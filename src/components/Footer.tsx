@@ -1,16 +1,20 @@
+
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
 import ClassicalBuilding from './images/ClassicalBuilding';
+
 interface FooterProps {
   className?: string;
 }
+
 const Footer: React.FC<FooterProps> = ({
   className
 }) => {
   const location = useLocation();
   const isBlogPage = location.pathname === '/blog';
+
   const scrollToSection = (id: string) => {
     if (id === 'home') {
       window.scrollTo({
@@ -27,6 +31,7 @@ const Footer: React.FC<FooterProps> = ({
       }
     }
   };
+
   return <footer id="contact" className="relative mx-0 mt-0 mb-0 px-[10px] bg-transparent py-[100px]">
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <div className="w-full h-full relative">
@@ -53,7 +58,7 @@ const Footer: React.FC<FooterProps> = ({
                   Current
                 </button>
               </>}
-            <Link to="/blog" className="text-sm hover:text-orangery-500 transition-colors">
+            <Link to="/blog" className="text-sm text-slate-50 transition-colors">
               Blog
             </Link>
           </div>
@@ -61,4 +66,5 @@ const Footer: React.FC<FooterProps> = ({
       </div>
     </footer>;
 };
+
 export default Footer;
