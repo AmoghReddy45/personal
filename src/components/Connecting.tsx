@@ -1,14 +1,21 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
+
 interface ConnectingProps {
   className?: string;
 }
+
 const Connecting: React.FC<ConnectingProps> = ({
   className
 }) => {
-  const founderTypes = ["Female executives, researchers, business owners", "First-time founders with significant experience outside tech (corporate, business owners)"];
-  return <section id="connecting" className={cn('py-20 bg-white', className)}>
+  const founderTypes = [
+    "Hire Me (i can build things) -> reddy.amogh2004@gmail.com", 
+    "my instagram's cool too -> @am.reddywbsgdhbe"
+  ];
+  
+  return <section id="connecting" className={cn('py-20 bg-gray-50', className)}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto">
           <FadeIn>
@@ -31,4 +38,5 @@ const Connecting: React.FC<ConnectingProps> = ({
       </div>
     </section>;
 };
+
 export default Connecting;
