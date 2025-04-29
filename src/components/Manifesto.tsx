@@ -38,7 +38,7 @@ const Manifesto: React.FC<ManifestoProps> = ({
           </FadeIn>
           
           <FadeIn delay={200}>
-            <p className="text-lg leading-relaxed text-muted-foreground text-center">
+            <p className="text-xs text-muted-foreground text-center italic mt-6">
               I don't really know what I'm doing
             </p>
           </FadeIn>
