@@ -1,12 +1,9 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import FadeIn from './animations/FadeIn';
-
 interface AboutProps {
   className?: string;
 }
-
 const About = () => {
   return <section className={cn('py-20 md:py-32 bg-white', 'text-orangery-900')}>
           
@@ -15,7 +12,7 @@ const About = () => {
             {/* Text Content */}
             <div className="text-center lg:text-left">
               <FadeIn delay={100}>
-                <h2 className="text-3xl md:text-4xl font-serif font-medium tracking-tight mb-4">About Amogh</h2>
+                <h2 className="text-3xl md:text-4xl font-serif font-medium tracking-tight mb-4">About Me</h2>
               </FadeIn>
               <FadeIn delay={200}>
                 <p className="text-lg md:text-xl mb-6">I enjoy exploring the intersection of code, culture, and creation.
@@ -37,5 +34,4 @@ Whether I'm optimizing microservices or writing about the cultural legacy of She
           </div>
     </section>;
 };
-
 export default About;
