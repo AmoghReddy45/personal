@@ -15,7 +15,7 @@ const About = () => {
                 <h2 className="text-3xl md:text-4xl font-serif font-medium tracking-tight mb-4">About Me</h2>
               </FadeIn>
               <FadeIn delay={200}>
-                <p className="text-lg md:text-xl mb-6">i like to think im a nice unification of decent literacy, an illustratory imagination, and an uncompromising - almost spiteful - need to be good at everything i do.</p>
+                <p className="text-lg font-serif md:text-xl mb-6">i like to think im a nice unification of decent literacy, an illustratory imagination, and an uncompromising - almost spiteful - need to be good at everything i do.</p>
               </FadeIn>
               <FadeIn delay={300}>
                 <p className="text-md md:text-lg text-gray-600">My work spans frontend development, backend architecture, AI systems, and storytelling—with one common thread: intentionality.
