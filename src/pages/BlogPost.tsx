@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -6,6 +6,7 @@ import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';
 import { ArrowLeft, CalendarIcon, Clock } from 'lucide-react';
 import FadeIn from '../components/animations/FadeIn';
+import anime from 'animejs'; // Standard import
 
 // Define tag types
 type PostType = 'Insight' | 'Research' | 'Build Log' | 'Reflection' | 'Essay';
@@ -43,6 +44,11 @@ const topicCategoryColors: Record<TopicCategory, string> = {
   'Personal': 'bg-orange-100 text-orange-800 hover:bg-orange-200',
   'Philosophy': 'bg-slate-100 text-slate-800 hover:bg-slate-200'
 };
+
+// Our own random function since anime.random might not be available
+function random(min: number, max: number): number {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 // Sample blog posts data - in a real app, you'd fetch this from an API or database
 const blogPostsData: Record<string, BlogPost> = {
@@ -169,28 +175,170 @@ const blogPostsData: Record<string, BlogPost> = {
   }
 };
 
+// CSS for glitch effect.
+// IMPORTANT: It's highly recommended to move this to a global CSS file 
+// (e.g., src/index.css or src/App.css) and import it there,
+// instead of using a <style> tag directly in the component.
+const glitchCSS = `
+.glitch-text {
+  position: relative;
+  /* Base text styling will be provided by Tailwind classes below */
+  /* (e.g., text-4xl, font-serif, text-gray-800) */
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text); /* Takes the text from data-text attribute */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  /* Adjust background-color if your page background is different from white */
+  background-color: #fff; 
+}
+
+.glitch-text::before {
+  left: 2px; /* Slight offset for the first glitch layer */
+  color: #ff00c1; /* Magentaish color for the text of this layer */
+  /* Defines how this layer is clipped. Animated by JS. */
+  clip-path: polygon(
+    0% var(--glitch-before-slice-YStart, 0%),
+    100% var(--glitch-before-slice-YStart, 0%),
+    100% var(--glitch-before-slice-YEnd, 0%),
+    0% var(--glitch-before-slice-YEnd, 0%)
+  );
+  /* Allows horizontal shifting. Animated by JS. */
+  transform: translateX(var(--glitch-before-translateX, 0px));
+  /* Controls visibility. Animated by JS. */
+  opacity: var(--glitch-before-opacity, 0); /* Initially hidden */
+}
+
+.glitch-text::after {
+  left: -2px; /* Slight offset for the second glitch layer */
+  color: #00fff9; /* Cyanish color for the text of this layer */
+  /* Defines how this layer is clipped. Animated by JS. */
+  clip-path: polygon(
+    0% var(--glitch-after-slice-YStart, 0%),
+    100% var(--glitch-after-slice-YStart, 0%),
+    100% var(--glitch-after-slice-YEnd, 0%),
+    0% var(--glitch-after-slice-YEnd, 0%)
+  );
+  /* Allows horizontal shifting. Animated by JS. */
+  transform: translateX(var(--glitch-after-translateX, 0px));
+  /* Controls visibility. Animated by JS. */
+  opacity: var(--glitch-after-opacity, 0); /* Initially hidden */
+}
+`;
+
 const BlogPost: React.FC = () => {
   const { postId } = useParams<{ postId: string }>();
   const post = postId ? blogPostsData[postId] : null;
+  const glitchRef = useRef<HTMLHeadingElement>(null); // Ref for the H1 element
+
+  useEffect(() => {
+    if (!post && glitchRef.current) {
+      const el = glitchRef.current;
+      let glitchInterval: number | undefined;
+      
+      // Simple manual glitch effect without using anime.js
+      const createGlitchEffect = () => {
+        // How many glitch cycles to perform
+        const cyclesToPerform = 10;
+        let currentCycle = 0;
+        
+        const runGlitchCycle = () => {
+          if (currentCycle >= cyclesToPerform) {
+            // Reset and pause between sequences
+            clearAllGlitchEffects();
+            setTimeout(createGlitchEffect, random(1000, 3000));
+            return;
+          }
+          
+          // Apply glitch
+          applyGlitchEffect();
+          
+          // Clear after a short time
+          setTimeout(clearAllGlitchEffects, random(50, 150));
+          
+          // Schedule next cycle
+          setTimeout(runGlitchCycle, random(100, 300));
+          
+          currentCycle++;
+        };
+        
+        // Start the cycle
+        runGlitchCycle();
+      };
+      
+      const applyGlitchEffect = () => {
+        if (!el) return;
+        
+        const style = el.style;
+        
+        // First overlay (magenta-ish)
+        let yStartBefore = random(0, 90);
+        let yEndBefore = random(yStartBefore + 5, 100);
+        style.setProperty('--glitch-before-slice-YStart', `${yStartBefore}%`);
+        style.setProperty('--glitch-before-slice-YEnd', `${yEndBefore}%`);
+        style.setProperty('--glitch-before-translateX', `${random(-8, 8)}px`);
+        style.setProperty('--glitch-before-opacity', '1');
+        
+        // Second overlay (cyan-ish)
+        let yStartAfter = random(0, 90);
+        let yEndAfter = random(yStartAfter + 5, 100);
+        style.setProperty('--glitch-after-slice-YStart', `${yStartAfter}%`);
+        style.setProperty('--glitch-after-slice-YEnd', `${yEndAfter}%`);
+        style.setProperty('--glitch-after-translateX', `${random(-8, 8)}px`);
+        style.setProperty('--glitch-after-opacity', '1');
+      };
+      
+      const clearAllGlitchEffects = () => {
+        if (!el) return;
+        
+        const style = el.style;
+        style.setProperty('--glitch-before-opacity', '0');
+        style.setProperty('--glitch-after-opacity', '0');
+      };
+      
+      // Start the effect
+      createGlitchEffect();
+      
+      // Clean up
+      return () => {
+        if (glitchInterval) clearInterval(glitchInterval);
+      };
+    }
+  }, [post]);
 
   if (!post) {
     return (
-      <div className="w-full overflow-x-hidden">
-        <Header />
-        <main className="pt-32 pb-20">
-          <div className="container mx-auto px-4 md:px-6 text-center">
-            <h1 className="text-4xl md:text-5xl font-serif font-medium tracking-tight mb-6">Post Not Found</h1>
-            <p className="text-xl text-gray-600 mb-8">The blog post you're looking for doesn't exist or has been moved.</p>
-            <Link to="/blog">
-              <Button>
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Blog
-              </Button>
-            </Link>
-          </div>
-        </main>
-        <Footer />
-      </div>
+      <>
+        <style>{glitchCSS}</style>
+        <div className="w-full overflow-x-hidden">
+          <Header />
+          <main className="pt-32 pb-20">
+            <div className="container mx-auto px-4 md:px-6 text-center">
+              <h1 
+                ref={glitchRef} 
+                className="glitch-text text-4xl md:text-5xl font-serif font-medium tracking-tight mb-6 text-gray-800"
+                data-text="Coming Soon" 
+              >
+                Coming Soon
+              </h1>
+              <p className="text-xl text-gray-600 mb-8">Patience. It will be done.</p>
+              <Link to="/blog">
+                <Button>
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back to Blog
+                </Button>
+              </Link>
+            </div>
+          </main>
+          <Footer />
+        </div>
+      </>
     );
   }
 
