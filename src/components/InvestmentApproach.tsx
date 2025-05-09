@@ -41,7 +41,7 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
 
   return (
     <section id="investment" className={cn("py-20 bg-white", className)}>
-      <div className="container mx-auto px-4 md:px-6" >
+      <div className="container mx-auto px-4 md:px-6">
         <div className="max-w-3xl mx-auto mb-16">
           <FadeIn>
             <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">
@@ -54,8 +54,7 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
               websites, writing about the things that catch my attention, and
               studying systems—whether technical, cultural, or personal. Right
               now, I'm focused on refining my backend architecture skills,
-              experimenting with AI workflows, and writing more casually -
-              without the pressure of perfection.
+              experimenting with AI workflows, and writing more casually.
             </p>
           </FadeIn>
         </div>
@@ -63,9 +62,9 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
         <div className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
           {investmentTiers.map((tier, index) => (
             <FadeIn key={index} delay={150 + index * 50}>
-              <CursorFog 
+              <CursorFog
                 color={tier.fogColor}
-                density={4} 
+                density={4}
                 particleSize={18}
                 fadeSpeed={0.006}
                 blendMode={tier.blendMode}
@@ -91,7 +90,8 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
                         {index === 0 && (
                           <div className="mt-4 pt-4 border-t border-gray-100">
                             <p className="text-sm font-medium">
-                              Enterprise-grade autonomy. Built for modern support.
+                              Enterprise-grade autonomy. Built for modern
+                              support.
                             </p>
                           </div>
                         )}
@@ -113,7 +113,9 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
                         </p>
                         {index === 1 && (
                           <div className="mt-4 pt-4 border-t border-gray-100">
-                            <p className="text-sm font-medium">I Like to Write</p>
+                            <p className="text-sm font-medium">
+                              I Like to Write
+                            </p>
                           </div>
                         )}
                       </CardContent>
