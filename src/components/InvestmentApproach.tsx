@@ -1,6 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
+import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import CursorFog from "./effects/CursorFog";
 
@@ -19,11 +20,10 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
       link: "https://www.eloraai.io/",
       external: true,
       fogColor: "rgba(65, 43, 118, 0.6)", // Deep Purple/Blue fog for Elora AI
-      blendMode: "screen",
-      pixelSize: 2,
-      turbulence: 1.5,
-      smokeIntensity: 0.7,
-      tagline: "Enterprise-grade autonomy. Built for modern support."
+      blendMode: "color-dodge",
+      pixelSize: 3,
+      turbulence: 1.75,
+      smokeIntensity: 1,
     },
     {
       title: "Writing & Creative Work",
@@ -32,17 +32,16 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
       link: "/blog",
       external: false,
       fogColor: "rgba(255, 120, 50, 0.6)", // Warm orange/red for creative theme
-      blendMode: "color-dodge",
-      pixelSize: 3,
+      blendMode: "screen",
+      pixelSize: 2,
       turbulence: 1.8,
       smokeIntensity: 0.6,
-      tagline: "I Like to Write"
     },
   ];
 
   return (
     <section id="investment" className={cn("py-20 bg-white", className)}>
-      <div className="container mx-auto px-4 md:px-6">
+      <div className="container mx-auto px-4 md:px-6" >
         <div className="max-w-3xl mx-auto mb-16">
           <FadeIn>
             <h2 className="text-3xl md:text-4xl font-serif mb-8 text-center">
@@ -79,36 +78,46 @@ const InvestmentApproach: React.FC<InvestmentApproachProps> = ({
                     href={tier.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block group h-full"
+                    className="block h-full transition-transform hover:scale-[1.02] focus:outline-none"
                   >
-                    <div className="border border-gray-200 rounded-lg p-6 group-hover:border-gray-300 transition-all group-hover:shadow-sm h-full flex flex-col bg-white">
-                      <h3 className="text-xl font-serif font-medium mb-3 group-hover:text-primary transition-colors">{tier.title}</h3>
-                      <p className="text-gray-600 mb-4 flex-grow">{tier.description}</p>
-                      <div className="mt-auto">
+                    <Card className="border border-gray-200 rounded-lg shadow-none h-full hover:shadow-sm hover:border-primary/50 transition-all cursor-pointer overflow-hidden">
+                      <CardContent className="p-8">
+                        <h3 className="text-xl font-medium mb-4 font-serif">
+                          {tier.title}
+                        </h3>
+                        <p className="text-muted-foreground mb-4">
+                          {tier.description}
+                        </p>
                         {index === 0 && (
                           <div className="mt-4 pt-4 border-t border-gray-100">
-                            <p className="text-sm font-medium">{tier.tagline}</p>
+                            <p className="text-sm font-medium">
+                              Enterprise-grade autonomy. Built for modern support.
+                            </p>
                           </div>
                         )}
-                      </div>
-                    </div>
+                      </CardContent>
+                    </Card>
                   </a>
                 ) : (
                   <Link
                     to={tier.link}
-                    className="block group h-full"
+                    className="block h-full transition-transform hover:scale-[1.02] focus:outline-none"
                   >
-                    <div className="border border-gray-200 rounded-lg p-6 group-hover:border-gray-300 transition-all group-hover:shadow-sm h-full flex flex-col bg-white">
-                      <h3 className="text-xl font-serif font-medium mb-3 group-hover:text-orangery-500 transition-colors">{tier.title}</h3>
-                      <p className="text-gray-600 mb-4 flex-grow">{tier.description}</p>
-                      <div className="mt-auto">
+                    <Card className="border border-gray-200 rounded-xlg shadow-none h-full hover:shadow-sm hover:border-gray-300 transition-all cursor-pointer overflow-hidden">
+                      <CardContent className="p-8">
+                        <h3 className="text-xl font-medium mb-4 font-serif">
+                          {tier.title}
+                        </h3>
+                        <p className="text-muted-foreground mb-4">
+                          {tier.description}
+                        </p>
                         {index === 1 && (
                           <div className="mt-4 pt-4 border-t border-gray-100">
-                            <p className="text-sm font-medium">{tier.tagline}</p>
+                            <p className="text-sm font-medium">I Like to Write</p>
                           </div>
                         )}
-                      </div>
-                    </div>
+                      </CardContent>
+                    </Card>
                   </Link>
                 )}
               </CursorFog>
