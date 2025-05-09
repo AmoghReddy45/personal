@@ -1,0 +1,11 @@
+node_modules
+.git
+.next
+dist
+public/lovable-uploads
+*.log
+.vscode
+.idea
+.DS_Store
+*.lock
+bun.lockb
