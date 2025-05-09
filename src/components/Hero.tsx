@@ -13,7 +13,7 @@ const Hero: React.FC<HeroProps> = ({
   return <section className={cn('relative min-h-screen flex items-center overflow-hidden', className)}>
       <div className="absolute inset-0 -z-10">
         <img 
-          src="/lovable-uploads/860a48fd-65b5-4fa8-ada8-36f19fc7e9e5.png" 
+          src="/greek-landscape.png" 
           alt="Classical Greek architecture landscape painting" 
           className="w-full h-full object-cover"
         />

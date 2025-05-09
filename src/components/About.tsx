@@ -43,7 +43,7 @@ const About = () => {
           {/* Image */}
           <div className="relative h-[500px] lg:h-[600px] overflow-hidden">
             <img
-              src="/lovable-uploads/c4fcdd31-cfe6-458c-8e77-fe481577108f.png"
+              src="/italian-villa.png"
               alt="Historical painting of Italian villa with cypress trees"
               className="w-full h-full object-cover"
             />
