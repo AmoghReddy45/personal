@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     mode === "development" && componentTagger(),
-    tempo({ enableRoutes: true }), // Enable routes explicitly
+    tempo(), // Use default configuration
   ].filter(Boolean),
   resolve: {
     alias: {
