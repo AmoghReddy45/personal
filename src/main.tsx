@@ -6,10 +6,15 @@ import { TempoDevtools } from "tempo-devtools";
 import { checkSupabaseConnection } from "./lib/checkSupabaseConnection";
 TempoDevtools.init();
 
-// Test Supabase connection on startup
-checkSupabaseConnection().then((result) => {
-  console.log("Supabase connection check result:", result);
-});
+// Test Supabase connection on startup with more detailed logging
+console.log("Starting Supabase connection check...");
+checkSupabaseConnection()
+  .then((result) => {
+    console.log("Supabase connection check result:", result);
+  })
+  .catch((err) => {
+    console.error("Unexpected error in connection check:", err);
+  });
 
 // Add error handling to catch rendering issues
 try {
