@@ -1,3 +1,4 @@
+# Node modules and package managers
 node_modules
 .git
 .next
@@ -9,3 +10,106 @@ public/lovable-uploads
 .DS_Store
 *.lock
 bun.lockb
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Additional exclusions to reduce deployment size
+.github
+.husky
+.cache
+coverage
+test
+tests
+__tests__
+*.test.*
+*.spec.*
+README.md
+LICENSE
+CHANGELOG.md
+CONTRIBUTING.md
+DOCKERFILE*
+docker-compose*
+*.md
+*.sh
+*.yml
+*.yaml
+*.config.js
+*.config.ts
+!vite.config.ts
+!tailwind.config.ts
+!postcss.config.js
+
+# Exclude large assets that aren't needed for production
+*.psd
+*.ai
+*.sketch
+*.fig
+*.xd
+*.afdesign
+*.afphoto
+*.xcf
+
+# Exclude development files
+optimize-images.js
+tsconfig.json
+tsconfig.*.json
+eslint.config.js
+.eslintrc*
+.prettierrc*
+.editorconfig
+
+# Exclude large media files if they're not needed in production
+*.mp4
+*.mov
+*.webm
+*.avi
+*.mkv
+*.flv
+*.wmv
+*.wav
+*.mp3
+*.flac
+*.ogg
+
+# Exclude source maps in production
+*.map
+
+# Exclude large images that aren't needed for production
+home/
+*.tif
+*.tiff
+*.raw
+*.bmp
+*.heic
+*.heif
+*.jpg
+*.jpeg
+*.png
+!public/favicon.ico
+!public/og-image.png
+
+# Exclude development-only directories
+.tempo
+tempobook
+src/tempobook
+supabase/functions
+
+# Exclude TypeScript source files - build first then deploy
+src/**/*.ts
+src/**/*.tsx
+!src/vite-env.d.ts
+!src/types/**/*
+
+# Include only the build output
+!dist/**/*
+
+# Exclude any other large files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Exclude node_modules completely
+node_modules/**/*

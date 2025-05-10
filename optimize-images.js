@@ -77,16 +77,8 @@ const optimizeIcon = async () => {
       console.log("public/Icon.png not found");
     }
 
-    if (fs.existsSync("src/Icon.png")) {
-      await optimizeImage("src/Icon.png", {
-        width: 32,
-        quality: 100, // Maximum quality for icon
-        outputPath: "src/Icon-32.png", // Save as a new file
-      });
-      console.log("src/Icon.png optimized to 32px width");
-    } else {
-      console.log("src/Icon.png not found");
-    }
+    // Skip src/Icon.png optimization as the file has been deleted
+    console.log("Skipping src/Icon.png optimization");
 
     console.log("Icon.png optimization completed!");
   } catch (error) {
