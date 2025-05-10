@@ -1,0 +1,43 @@
+import { BlogPost } from "../hooks/useSupabaseBlogPosts";
+
+export const sampleBlogPosts: BlogPost[] = [
+  {
+    id: "1",
+    title: "The Art of Building Software",
+    excerpt:
+      "Exploring the creative and technical aspects of software development and how it resembles traditional craftsmanship.",
+    content:
+      "<p>Software development is as much an art as it is a science. Like traditional craftsmen, developers must balance technical precision with creative problem-solving.</p><p>The best software emerges when developers approach their work with both analytical rigor and creative intuition, resulting in solutions that are not just functional but elegant.</p>",
+    date: "2024-06-15",
+    readTime: "5 min read",
+    postTypes: ["Essay", "Reflection"],
+    topicCategories: ["Tech", "Design"],
+    coverImage: "/lovable-uploads/12d921da-ef3a-4fa3-bb2c-54dca6f31643.png",
+  },
+  {
+    id: "2",
+    title: "Modern Architecture: Form vs. Function",
+    excerpt:
+      "Examining the tension between aesthetic appeal and practical utility in contemporary architectural design.",
+    content:
+      "<p>The eternal debate in architecture between form and function continues to shape our built environment. While modernist principles emphasized that form should follow function, contemporary architects often seek a more nuanced balance.</p><p>Today's most successful buildings manage to be both visually striking and highly functional, proving that these qualities can be complementary rather than contradictory.</p>",
+    date: "2024-05-28",
+    readTime: "7 min read",
+    postTypes: ["Essay"],
+    topicCategories: ["Design", "Culture"],
+    coverImage: "/greek-architecture.png",
+  },
+  {
+    id: "3",
+    title: "The Psychology of Productivity",
+    excerpt:
+      "Understanding the mental factors that influence our ability to work efficiently and effectively.",
+    content:
+      "<p>Productivity isn't just about time management—it's deeply rooted in psychology. Our mental state, environment, and habits all play crucial roles in determining how effectively we work.</p><p>By understanding concepts like flow state, decision fatigue, and the impact of environment on focus, we can design better work routines that align with our cognitive strengths rather than fighting against them.</p>",
+    date: "2024-04-10",
+    readTime: "6 min read",
+    postTypes: ["Research", "Insight"],
+    topicCategories: ["Psychology", "Health"],
+    coverImage: "/classical-building.png",
+  },
+];

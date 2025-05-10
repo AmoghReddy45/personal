@@ -20,21 +20,14 @@ let cachedAllPosts: BlogPost[] | null = null;
 let isFetchingCache = false;
 let isFetchingAllPosts = false;
 
+// Import hardcoded sample posts
+import { sampleBlogPosts } from "../data/sampleBlogPosts";
+
 // Fallback data in case Supabase connection fails
 let fallbackPostsLoaded = false;
 async function loadFallbackPosts(): Promise<BlogPost[]> {
-  if (fallbackPostsLoaded && cachedAllPosts) return cachedAllPosts;
-
-  try {
-    const response = await fetch("/sample-blog-posts.json");
-    if (!response.ok) throw new Error("Failed to load fallback posts");
-    const data = await response.json();
-    fallbackPostsLoaded = true;
-    return data;
-  } catch (err) {
-    console.error("Error loading fallback posts:", err);
-    return [];
-  }
+  console.log("Loading fallback posts from hardcoded data");
+  return sampleBlogPosts;
 }
 
 // Function to process blog posts data
@@ -199,6 +192,13 @@ export const useSupabaseBlogPosts = (
   selectedTopicCategories?: TopicCategory[],
   loadAll: boolean = false,
 ) => {
+  // Immediately load sample posts into cache if not already loaded
+  if (!cachedAllPosts) {
+    cachedAllPosts = sampleBlogPosts;
+  }
+  if (!cachedPosts) {
+    cachedPosts = sampleBlogPosts;
+  }
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -454,6 +454,10 @@ export const prefetchBlogPost = async (postId: string): Promise<void> => {
 };
 
 export const useSupabaseBlogPost = (postId: string | undefined) => {
+  // Ensure sample posts are loaded
+  if (!cachedAllPosts) {
+    cachedAllPosts = sampleBlogPosts;
+  }
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
