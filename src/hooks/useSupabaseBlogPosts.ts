@@ -139,11 +139,17 @@ export const preloadAllBlogPosts = async (): Promise<void> => {
 
   try {
     // Fetch all blog posts
+    console.log("Fetching all blog posts from Supabase...");
     const { data: blogPosts, error: postsError } = await supabase
       .from("blog_posts")
       .select("*");
 
-    if (postsError) throw postsError;
+    if (postsError) {
+      console.error("Error fetching all blog posts:", postsError);
+      throw postsError;
+    }
+
+    console.log("All blog posts fetched:", blogPosts?.length || 0);
 
     // Fetch all post types
     const { data: postTypes, error: typesError } = await supabase
@@ -235,39 +241,53 @@ export const useSupabaseBlogPosts = (
           return;
         }
 
-        // Fetch all blog posts
-        console.log("Fetching all blog posts from Supabase...");
-        const { data: blogPosts, error: postsError } = await supabase
-          .from("blog_posts")
-          .select("*");
+        // Try to load from fallback first if we don't have cached data
+        let processedPosts: BlogPost[] = [];
+        let usedFallback = false;
 
-        if (postsError) {
-          console.error("Error fetching all blog posts:", postsError);
-          throw postsError;
+        try {
+          // Fetch all blog posts
+          console.log("Fetching all blog posts from Supabase...");
+          const { data: blogPosts, error: postsError } = await supabase
+            .from("blog_posts")
+            .select("*");
+
+          if (postsError) {
+            console.error("Error fetching all blog posts:", postsError);
+            throw postsError;
+          }
+
+          console.log("All blog posts fetched:", blogPosts?.length || 0);
+
+          // Fetch all post types
+          const { data: postTypes, error: typesError } = await supabase
+            .from("blog_post_types")
+            .select("*");
+
+          if (typesError) throw typesError;
+
+          // Fetch all topic categories
+          const { data: topicCategories, error: topicsError } = await supabase
+            .from("blog_post_topics")
+            .select("*");
+
+          if (topicsError) throw topicsError;
+
+          // Process and combine the data
+          processedPosts = processBlogPostsData(
+            blogPosts,
+            postTypes,
+            topicCategories,
+          );
+        } catch (supabaseErr) {
+          console.error(
+            "Error fetching from Supabase, using fallback:",
+            supabaseErr,
+          );
+          processedPosts = await loadFallbackPosts();
+          usedFallback = true;
+          console.log("Using fallback posts:", processedPosts.length);
         }
-
-        console.log("All blog posts fetched:", blogPosts?.length || 0);
-
-        // Fetch all post types
-        const { data: postTypes, error: typesError } = await supabase
-          .from("blog_post_types")
-          .select("*");
-
-        if (typesError) throw typesError;
-
-        // Fetch all topic categories
-        const { data: topicCategories, error: topicsError } = await supabase
-          .from("blog_post_topics")
-          .select("*");
-
-        if (topicsError) throw topicsError;
-
-        // Process and combine the data
-        const processedPosts = processBlogPostsData(
-          blogPosts,
-          postTypes,
-          topicCategories,
-        );
 
         // Sort posts by date (most recent first)
         processedPosts.sort(
@@ -301,8 +321,9 @@ export const useSupabaseBlogPosts = (
           );
         }
 
-        // If no filters are applied, update the appropriate cache
+        // If no filters are applied and we didn't use fallback, update the appropriate cache
         if (
+          !usedFallback &&
           !searchQuery &&
           (!selectedPostTypes || selectedPostTypes.length === 0) &&
           (!selectedTopicCategories || selectedTopicCategories.length === 0)
@@ -316,9 +337,26 @@ export const useSupabaseBlogPosts = (
 
         setPosts(filteredPosts);
       } catch (err) {
+        console.error("Error in fetchPosts:", err);
         setError(
           err instanceof Error ? err : new Error("An unknown error occurred"),
         );
+
+        // Try to load fallback posts if Supabase fails
+        try {
+          console.log("Loading fallback posts after error...");
+          const fallbackPosts = await loadFallbackPosts();
+          setPosts(fallbackPosts);
+          console.log(
+            "Fallback posts loaded after error:",
+            fallbackPosts.length,
+          );
+        } catch (fallbackErr) {
+          console.error(
+            "Failed to load fallback posts after error:",
+            fallbackErr,
+          );
+        }
       } finally {
         setLoading(false);
       }
@@ -448,49 +486,81 @@ export const useSupabaseBlogPost = (postId: string | undefined) => {
           }
         }
 
-        // Fetch the specific blog post
-        const { data: blogPost, error: postError } = await supabase
-          .from("blog_posts")
-          .select("*")
-          .eq("id", postId)
-          .single();
+        // Try to fetch from Supabase first
+        try {
+          // Fetch the specific blog post
+          const { data: blogPost, error: postError } = await supabase
+            .from("blog_posts")
+            .select("*")
+            .eq("id", postId)
+            .single();
 
-        if (postError) throw postError;
-        if (!blogPost) throw new Error("Post not found");
+          if (postError) throw postError;
+          if (!blogPost) throw new Error("Post not found");
 
-        // Fetch post types for this post
-        const { data: postTypes, error: typesError } = await supabase
-          .from("blog_post_types")
-          .select("post_type")
-          .eq("post_id", postId);
+          // Fetch post types for this post
+          const { data: postTypes, error: typesError } = await supabase
+            .from("blog_post_types")
+            .select("post_type")
+            .eq("post_id", postId);
 
-        if (typesError) throw typesError;
+          if (typesError) throw typesError;
 
-        // Fetch topic categories for this post
-        const { data: topicCategories, error: topicsError } = await supabase
-          .from("blog_post_topics")
-          .select("topic_category")
-          .eq("post_id", postId);
+          // Fetch topic categories for this post
+          const { data: topicCategories, error: topicsError } = await supabase
+            .from("blog_post_topics")
+            .select("topic_category")
+            .eq("post_id", postId);
 
-        if (topicsError) throw topicsError;
+          if (topicsError) throw topicsError;
 
-        // Combine the data
-        const processedPost: BlogPost = {
-          id: blogPost.id,
-          title: blogPost.title,
-          excerpt: blogPost.excerpt,
-          content: blogPost.content,
-          date: blogPost.date,
-          readTime: blogPost.read_time,
-          postTypes: postTypes.map((type) => type.post_type),
-          topicCategories: topicCategories.map((topic) => topic.topic_category),
-          coverImage: blogPost.cover_image,
-        };
+          // Combine the data
+          const processedPost: BlogPost = {
+            id: blogPost.id,
+            title: blogPost.title,
+            excerpt: blogPost.excerpt,
+            content: blogPost.content,
+            date: blogPost.date,
+            readTime: blogPost.read_time,
+            postTypes: postTypes.map((type) => type.post_type),
+            topicCategories: topicCategories.map(
+              (topic) => topic.topic_category,
+            ),
+            coverImage: blogPost.cover_image,
+          };
 
-        setPost(processedPost);
-        // Also cache it for future use
-        prefetchedPostsCache.set(postId, processedPost);
+          setPost(processedPost);
+          // Also cache it for future use
+          prefetchedPostsCache.set(postId, processedPost);
+        } catch (supabaseErr) {
+          console.error(
+            `Error fetching blog post ${postId} from Supabase:`,
+            supabaseErr,
+          );
+
+          // Try to find a matching post in the fallback data
+          const fallbackPosts = await loadFallbackPosts();
+          const fallbackPost = fallbackPosts.find((p) => {
+            // Try to match by ID first
+            if (p.id === postId) return true;
+
+            // Then try to match by slug
+            const slug = p.title
+              .toLowerCase()
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/(^-|-$)/g, "");
+            return slug === postId;
+          });
+
+          if (fallbackPost) {
+            console.log(`Found fallback post for ${postId}`);
+            setPost(fallbackPost);
+          } else {
+            throw new Error("Post not found in fallback data");
+          }
+        }
       } catch (err) {
+        console.error(`Error in useSupabaseBlogPost for ${postId}:`, err);
         setError(
           err instanceof Error ? err : new Error("An unknown error occurred"),
         );
