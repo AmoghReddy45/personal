@@ -5,4 +5,25 @@ import "./index.css";
 import { TempoDevtools } from "tempo-devtools";
 TempoDevtools.init();
 
-createRoot(document.getElementById("root")!).render(<App />);
+// Add error handling to catch rendering issues
+try {
+  const rootElement = document.getElementById("root");
+  if (!rootElement) {
+    console.error("Root element not found!");
+  } else {
+    createRoot(rootElement).render(<App />);
+    console.log("App successfully rendered");
+  }
+} catch (error) {
+  console.error("Failed to render the app:", error);
+  // Display a fallback UI when rendering fails
+  const rootElement = document.getElementById("root");
+  if (rootElement) {
+    rootElement.innerHTML = `
+      <div style="padding: 20px; text-align: center;">
+        <h1>Something went wrong</h1>
+        <p>Please check the console for more information.</p>
+      </div>
+    `;
+  }
+}

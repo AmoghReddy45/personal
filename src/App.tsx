@@ -40,8 +40,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:postId" element={<BlogPost />} />{" "}
-        {/* Add the new route for individual blog posts */}
+        <Route path="/blog/:postId" element={<BlogPost />} />
         {/* Allow Tempo to capture routes before the catch-all */}
         {import.meta.env.VITE_TEMPO && <Route path="/tempobook/*" />}
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
