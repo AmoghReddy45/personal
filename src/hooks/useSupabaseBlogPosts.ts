@@ -20,6 +20,23 @@ let cachedAllPosts: BlogPost[] | null = null;
 let isFetchingCache = false;
 let isFetchingAllPosts = false;
 
+// Fallback data in case Supabase connection fails
+let fallbackPostsLoaded = false;
+async function loadFallbackPosts(): Promise<BlogPost[]> {
+  if (fallbackPostsLoaded && cachedAllPosts) return cachedAllPosts;
+
+  try {
+    const response = await fetch("/sample-blog-posts.json");
+    if (!response.ok) throw new Error("Failed to load fallback posts");
+    const data = await response.json();
+    fallbackPostsLoaded = true;
+    return data;
+  } catch (err) {
+    console.error("Error loading fallback posts:", err);
+    return [];
+  }
+}
+
 // Function to process blog posts data
 const processBlogPostsData = (
   blogPosts: any[],
@@ -56,15 +73,27 @@ export const preloadTopBlogPosts = async (): Promise<void> => {
   if (cachedPosts || isFetchingCache) return;
 
   isFetchingCache = true;
+  console.log("Preloading top blog posts...");
 
   try {
     // Fetch top 6 blog posts
+    console.log("Fetching top blog posts from Supabase...");
+    console.log(
+      "Supabase URL:",
+      import.meta.env.VITE_SUPABASE_URL ? "Set" : "Not set",
+    );
+
     const { data: blogPosts, error: postsError } = await supabase
       .from("blog_posts")
       .select("*")
       .limit(6);
 
-    if (postsError) throw postsError;
+    if (postsError) {
+      console.error("Error fetching blog posts:", postsError);
+      throw postsError;
+    }
+
+    console.log("Blog posts fetched:", blogPosts?.length || 0);
 
     // Fetch all post types for these posts
     const { data: postTypes, error: typesError } = await supabase
@@ -88,6 +117,15 @@ export const preloadTopBlogPosts = async (): Promise<void> => {
     );
   } catch (err) {
     console.error("Error preloading blog posts:", err);
+
+    // Load fallback posts if Supabase fails
+    console.log("Loading fallback posts...");
+    try {
+      cachedPosts = await loadFallbackPosts();
+      console.log("Fallback posts loaded:", cachedPosts.length);
+    } catch (fallbackErr) {
+      console.error("Failed to load fallback posts:", fallbackErr);
+    }
   } finally {
     isFetchingCache = false;
   }
@@ -133,6 +171,17 @@ export const preloadAllBlogPosts = async (): Promise<void> => {
     );
   } catch (err) {
     console.error("Error preloading all blog posts:", err);
+
+    // Load fallback posts if Supabase fails
+    try {
+      cachedAllPosts = await loadFallbackPosts();
+      console.log(
+        "Fallback posts loaded for all posts:",
+        cachedAllPosts.length,
+      );
+    } catch (fallbackErr) {
+      console.error("Failed to load fallback posts:", fallbackErr);
+    }
   } finally {
     isFetchingAllPosts = false;
   }
@@ -153,6 +202,12 @@ export const useSupabaseBlogPosts = (
       try {
         setLoading(true);
         setError(null);
+        console.log("Fetching blog posts with filters:", {
+          searchQuery,
+          selectedPostTypes,
+          selectedTopicCategories,
+          loadAll,
+        });
 
         // Check if we have cached posts and no filters are applied
         if (
@@ -181,11 +236,17 @@ export const useSupabaseBlogPosts = (
         }
 
         // Fetch all blog posts
+        console.log("Fetching all blog posts from Supabase...");
         const { data: blogPosts, error: postsError } = await supabase
           .from("blog_posts")
           .select("*");
 
-        if (postsError) throw postsError;
+        if (postsError) {
+          console.error("Error fetching all blog posts:", postsError);
+          throw postsError;
+        }
+
+        console.log("All blog posts fetched:", blogPosts?.length || 0);
 
         // Fetch all post types
         const { data: postTypes, error: typesError } = await supabase

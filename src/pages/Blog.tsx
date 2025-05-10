@@ -115,6 +115,16 @@ const Blog: React.FC = () => {
     true, // Load all posts when on the blog page
   );
 
+  // Log any errors for debugging
+  useEffect(() => {
+    if (error) {
+      console.error("Error in Blog component:", error);
+    }
+    if (posts) {
+      console.log("Posts loaded in Blog component:", posts.length);
+    }
+  }, [posts, error]);
+
   // Preload all blog posts when the component mounts
   useEffect(() => {
     import("../hooks/useSupabaseBlogPosts").then(({ preloadAllBlogPosts }) => {
