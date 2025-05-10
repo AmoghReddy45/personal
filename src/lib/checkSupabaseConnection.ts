@@ -6,7 +6,7 @@ export async function checkSupabaseConnection() {
     console.log("Supabase client initialized:", !!supabase);
 
     // Log the URL being used (without exposing the full URL)
-    const url = supabase?.supabaseUrl || "not set";
+    const url = import.meta.env.VITE_SUPABASE_URL || "not set";
     console.log(
       "Using Supabase URL domain:",
       url.includes("://") ? new URL(url).hostname : "invalid URL",
