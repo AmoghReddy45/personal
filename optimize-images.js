@@ -12,27 +12,40 @@ const optimizeImage = async (inputPath, options = {}) => {
       return;
     }
 
+    // Create a temporary output path if none provided
+    const tempOutputPath =
+      outputPath || `${inputPath.replace(/\.[^.]+$/, "")}-optimized.png`;
+
+    // Process the image with width only to maintain aspect ratio
     const imageProcess = sharp(inputPath);
 
     if (width) {
-      imageProcess.resize(width);
+      // Resize with width only to maintain aspect ratio
+      imageProcess.resize(width, null, {
+        fit: "inside",
+        withoutEnlargement: true, // Force resize even if smaller
+      });
     }
 
+    // Apply high compression
     await imageProcess
       .png({ quality, compressionLevel: 9 })
-      .toFile(
-        outputPath || `${inputPath.replace(/\.[^.]+$/, "")}-optimized.png`,
-      );
+      .toFile(tempOutputPath);
+
+    // Verify the file was created
+    if (!fs.existsSync(tempOutputPath)) {
+      throw new Error(`Failed to create optimized image at ${tempOutputPath}`);
+    }
 
     if (outputPath) {
       console.log(`Optimized: ${inputPath} → ${outputPath}`);
     } else {
+      // Replace the original file with the optimized version
       fs.unlinkSync(inputPath);
-      fs.renameSync(
-        `${inputPath.replace(/\.[^.]+$/, "")}-optimized.png`,
-        inputPath,
+      fs.renameSync(tempOutputPath, inputPath);
+      console.log(
+        `Optimized in place: ${inputPath} (resized to ${width}px width)`,
       );
-      console.log(`Optimized in place: ${inputPath}`);
     }
   } catch (error) {
     console.error(`Error optimizing ${inputPath}:`, error);
@@ -43,11 +56,78 @@ const optimizeImage = async (inputPath, options = {}) => {
 const optimizeIcon = async () => {
   try {
     console.log("Optimizing Icon.png...");
-    await optimizeImage("public/Icon.png", { width: 192 });
-    await optimizeImage("src/Icon.png", { width: 192 });
-    console.log("Icon.png optimized successfully!");
+
+    // Check if files exist before optimizing
+    if (fs.existsSync("public/Icon.png")) {
+      // Create a completely new icon at 16x16 pixels (favicon size)
+      await optimizeImage("public/Icon.png", {
+        width: 16,
+        quality: 100, // Maximum quality for small icon
+        outputPath: "public/favicon.ico", // Save as favicon.ico
+      });
+
+      // Create a proportionally resized version for the browser tab
+      await optimizeImage("public/Icon.png", {
+        width: 32,
+        quality: 100, // Maximum quality for icon
+        outputPath: "public/Icon-2.png", // Save as Icon-2.png
+      });
+      console.log("public/Icon.png optimized to 16px and 32px versions");
+    } else {
+      console.log("public/Icon.png not found");
+    }
+
+    if (fs.existsSync("src/Icon.png")) {
+      await optimizeImage("src/Icon.png", {
+        width: 32,
+        quality: 100, // Maximum quality for icon
+        outputPath: "src/Icon-32.png", // Save as a new file
+      });
+      console.log("src/Icon.png optimized to 32px width");
+    } else {
+      console.log("src/Icon.png not found");
+    }
+
+    console.log("Icon.png optimization completed!");
   } catch (error) {
     console.error("Error optimizing Icon.png:", error);
+  }
+};
+
+// Optimize Claude-inspired icon
+const optimizeClaudeIcon = async () => {
+  try {
+    console.log("Optimizing Claude-inspired icon...");
+
+    // Check if file exists before optimizing
+    if (fs.existsSync("public/icons/claude-inspired-icon.png")) {
+      // Create a favicon version
+      await optimizeImage("public/icons/claude-inspired-icon.png", {
+        width: 16,
+        quality: 100, // Maximum quality for small icon
+        outputPath: "public/favicon.ico", // Replace the favicon
+      });
+
+      // Create a tab icon version
+      await optimizeImage("public/icons/claude-inspired-icon.png", {
+        width: 24,
+        quality: 100, // Maximum quality for icon
+        outputPath: "public/claude-tab-icon.png", // Save as a new file
+      });
+
+      // Create a larger version for other uses
+      await optimizeImage("public/icons/claude-inspired-icon.png", {
+        width: 192,
+        quality: 100, // Maximum quality for icon
+        outputPath: "public/claude-icon-192.png", // Save as a new file for PWA
+      });
+
+      console.log("Claude-inspired icon optimized to multiple sizes");
+    } else {
+      console.log("public/icons/claude-inspired-icon.png not found");
+    }
+  } catch (error) {
+    console.error("Error optimizing Claude-inspired icon:", error);
   }
 };
 
@@ -84,4 +164,5 @@ const optimizeLovableUploads = async () => {
 
 // Run optimizations
 optimizeIcon();
+optimizeClaudeIcon();
 optimizeLovableUploads();
