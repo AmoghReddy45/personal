@@ -1,17 +1,1 @@
-{
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "images": {
-    "sizes": [192, 256, 384, 512],
-    "minimumCacheTTL": 60,
-    "formats": ["image/webp", "image/avif"]
-  },
-  "github": {
-    "silent": true
-  },
-  "build": {
-    "env": {
-      "NODE_OPTIONS": "--max-old-space-size=4096"
-    }
-  }
-}
+{"version":2,"builds":[{"src":"package.json","use":"@vercel/static-build","config":{"distDir":"dist"}}],"routes":[{"handle":"filesystem"},{"src":"/(.*)","dest":"/index.html"}]}
