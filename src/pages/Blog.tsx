@@ -125,15 +125,6 @@ const Blog: React.FC = () => {
     }
   }, [posts, error]);
 
-  // Force load sample posts if no posts are loaded
-  useEffect(() => {
-    if (!loading && (!posts || posts.length === 0)) {
-      import("../data/sampleBlogPosts").then(({ sampleBlogPosts }) => {
-        setFilteredPosts(sampleBlogPosts);
-      });
-    }
-  }, [loading, posts]);
-
   // Preload all blog posts when the component mounts
   useEffect(() => {
     import("../hooks/useSupabaseBlogPosts").then(({ preloadAllBlogPosts }) => {

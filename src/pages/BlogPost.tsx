@@ -194,30 +194,7 @@ const BlogPost: React.FC = () => {
       console.log("Post types:", post.postTypes);
       console.log("Topic categories:", post.topicCategories);
     }
-
-    // If post not found, try to load from sample data
-    if (!loading && (!post || error)) {
-      import("../data/sampleBlogPosts").then(({ sampleBlogPosts }) => {
-        const samplePost = sampleBlogPosts.find((p) => {
-          // Try to match by ID first
-          if (p.id === postId) return true;
-
-          // Then try to match by slug
-          const slug = p.title
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/(^-|-$)/g, "");
-          return slug === postId;
-        });
-
-        if (samplePost) {
-          console.log("Found sample post for ID:", postId);
-          setPost(samplePost);
-          setError(null);
-        }
-      });
-    }
-  }, [post, error, loading, postId]);
+  }, [post, error]);
 
   // Prepare the glitch effect reference even during loading
   // to prevent any flash when transitioning from loading to error state

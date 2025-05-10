@@ -3,7 +3,13 @@ import App from "./App.tsx";
 import "./index.css";
 // Import and initialize Tempo Devtools
 import { TempoDevtools } from "tempo-devtools";
+import { checkSupabaseConnection } from "./lib/checkSupabaseConnection";
 TempoDevtools.init();
+
+// Test Supabase connection on startup
+checkSupabaseConnection().then((result) => {
+  console.log("Supabase connection check result:", result);
+});
 
 // Add error handling to catch rendering issues
 try {

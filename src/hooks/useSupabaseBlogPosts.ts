@@ -20,14 +20,12 @@ let cachedAllPosts: BlogPost[] | null = null;
 let isFetchingCache = false;
 let isFetchingAllPosts = false;
 
-// Import hardcoded sample posts
-import { sampleBlogPosts } from "../data/sampleBlogPosts";
-
-// Fallback data in case Supabase connection fails
-let fallbackPostsLoaded = false;
-async function loadFallbackPosts(): Promise<BlogPost[]> {
-  console.log("Loading fallback posts from hardcoded data");
-  return sampleBlogPosts;
+// No fallback data - we'll use only Supabase data
+async function handleSupabaseError(error: any): Promise<never> {
+  console.error("Supabase error:", error);
+  throw new Error(
+    `Supabase connection error: ${error.message || "Unknown error"}`,
+  );
 }
 
 // Function to process blog posts data
@@ -110,15 +108,7 @@ export const preloadTopBlogPosts = async (): Promise<void> => {
     );
   } catch (err) {
     console.error("Error preloading blog posts:", err);
-
-    // Load fallback posts if Supabase fails
-    console.log("Loading fallback posts...");
-    try {
-      cachedPosts = await loadFallbackPosts();
-      console.log("Fallback posts loaded:", cachedPosts.length);
-    } catch (fallbackErr) {
-      console.error("Failed to load fallback posts:", fallbackErr);
-    }
+    // Don't use fallbacks, just propagate the error
   } finally {
     isFetchingCache = false;
   }
@@ -170,17 +160,7 @@ export const preloadAllBlogPosts = async (): Promise<void> => {
     );
   } catch (err) {
     console.error("Error preloading all blog posts:", err);
-
-    // Load fallback posts if Supabase fails
-    try {
-      cachedAllPosts = await loadFallbackPosts();
-      console.log(
-        "Fallback posts loaded for all posts:",
-        cachedAllPosts.length,
-      );
-    } catch (fallbackErr) {
-      console.error("Failed to load fallback posts:", fallbackErr);
-    }
+    // Don't use fallbacks, just propagate the error
   } finally {
     isFetchingAllPosts = false;
   }
@@ -192,13 +172,6 @@ export const useSupabaseBlogPosts = (
   selectedTopicCategories?: TopicCategory[],
   loadAll: boolean = false,
 ) => {
-  // Immediately load sample posts into cache if not already loaded
-  if (!cachedAllPosts) {
-    cachedAllPosts = sampleBlogPosts;
-  }
-  if (!cachedPosts) {
-    cachedPosts = sampleBlogPosts;
-  }
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -280,13 +253,8 @@ export const useSupabaseBlogPosts = (
             topicCategories,
           );
         } catch (supabaseErr) {
-          console.error(
-            "Error fetching from Supabase, using fallback:",
-            supabaseErr,
-          );
-          processedPosts = await loadFallbackPosts();
-          usedFallback = true;
-          console.log("Using fallback posts:", processedPosts.length);
+          console.error("Error fetching from Supabase:", supabaseErr);
+          throw supabaseErr;
         }
 
         // Sort posts by date (most recent first)
@@ -341,22 +309,7 @@ export const useSupabaseBlogPosts = (
         setError(
           err instanceof Error ? err : new Error("An unknown error occurred"),
         );
-
-        // Try to load fallback posts if Supabase fails
-        try {
-          console.log("Loading fallback posts after error...");
-          const fallbackPosts = await loadFallbackPosts();
-          setPosts(fallbackPosts);
-          console.log(
-            "Fallback posts loaded after error:",
-            fallbackPosts.length,
-          );
-        } catch (fallbackErr) {
-          console.error(
-            "Failed to load fallback posts after error:",
-            fallbackErr,
-          );
-        }
+        setPosts([]);
       } finally {
         setLoading(false);
       }
@@ -454,10 +407,6 @@ export const prefetchBlogPost = async (postId: string): Promise<void> => {
 };
 
 export const useSupabaseBlogPost = (postId: string | undefined) => {
-  // Ensure sample posts are loaded
-  if (!cachedAllPosts) {
-    cachedAllPosts = sampleBlogPosts;
-  }
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -541,27 +490,7 @@ export const useSupabaseBlogPost = (postId: string | undefined) => {
             `Error fetching blog post ${postId} from Supabase:`,
             supabaseErr,
           );
-
-          // Try to find a matching post in the fallback data
-          const fallbackPosts = await loadFallbackPosts();
-          const fallbackPost = fallbackPosts.find((p) => {
-            // Try to match by ID first
-            if (p.id === postId) return true;
-
-            // Then try to match by slug
-            const slug = p.title
-              .toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/(^-|-$)/g, "");
-            return slug === postId;
-          });
-
-          if (fallbackPost) {
-            console.log(`Found fallback post for ${postId}`);
-            setPost(fallbackPost);
-          } else {
-            throw new Error("Post not found in fallback data");
-          }
+          throw supabaseErr;
         }
       } catch (err) {
         console.error(`Error in useSupabaseBlogPost for ${postId}:`, err);
