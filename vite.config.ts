@@ -11,11 +11,17 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     // Allow Tempo to access the server
     allowedHosts: process.env.TEMPO === "true" ? true : undefined,
+    // Add history API fallback for SPA routing
+    historyApiFallback: true,
   },
   plugins: [
     react(),
     mode === "development" && componentTagger(),
-    tempo(), // Use default configuration
+    tempo({
+      // Explicitly set the storyboards directory
+      storyboardsDir: "src/tempobook/storyboards",
+      dynamicDir: "src/tempobook/dynamic",
+    }),
   ].filter(Boolean),
   resolve: {
     alias: {
