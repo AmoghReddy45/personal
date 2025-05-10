@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import SupabaseImage from "../components/SupabaseImage";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { ArrowLeft, CalendarIcon, Clock } from "lucide-react";
@@ -244,7 +245,7 @@ const BlogPost: React.FC = () => {
         {/* Cover image */}
         <div className="w-full h-[400px] relative mb-8">
           <div className="absolute inset-0 bg-black/30"></div>
-          <img
+          <SupabaseImage
             src={post.coverImage || "/villa-florist.png"}
             alt={post.title}
             className="w-full h-full object-cover"

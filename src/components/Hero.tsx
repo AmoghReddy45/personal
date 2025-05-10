@@ -1,6 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
+import SupabaseImage from "./SupabaseImage";
 
 interface HeroProps {
   className?: string;
@@ -15,7 +16,7 @@ const Hero: React.FC<HeroProps> = ({ className }) => {
       )}
     >
       <div className="absolute inset-0 -z-10">
-        <img
+        <SupabaseImage
           src="/greek-landscape.png"
           alt="Classical Greek architecture landscape painting"
           className="w-full h-full object-cover"

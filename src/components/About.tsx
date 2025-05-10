@@ -1,6 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import FadeIn from "./animations/FadeIn";
+import SupabaseImage from "./SupabaseImage";
 interface AboutProps {
   className?: string;
 }
@@ -42,7 +43,7 @@ const About = () => {
 
           {/* Image */}
           <div className="relative h-[500px] lg:h-[600px] overflow-hidden">
-            <img
+            <SupabaseImage
               src="/italian-villa.png"
               alt="Historical painting of Italian villa with cypress trees"
               className="w-full h-full object-cover"

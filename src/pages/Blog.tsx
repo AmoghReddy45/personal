@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import FadeIn from "../components/animations/FadeIn";
+import SupabaseImage from "../components/SupabaseImage";
 import { Input } from "../components/ui/input";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
@@ -299,7 +300,7 @@ const Blog: React.FC = () => {
               </div>
             </div>
             <FadeIn delay={100}>
-              <img
+              <SupabaseImage
                 src="/diogenes.jpg"
                 alt="Diogenes"
                 className="w-72 md:w-88 lg:w-[28rem] h-auto object-cover border-2 border-gray-200 shadow-md rounded-lg hidden md:block"
