@@ -423,11 +423,9 @@ const BlogCard: React.FC<BlogCardProps> = ({
     prefetchBlogPost(postId);
   };
 
-  // Determine excerpt length class for dynamic spacing
+  // Use consistent spacing for all excerpts
   const getExcerptSpacingClass = () => {
-    const wordCount = excerpt.split(" ").length;
-    // If excerpt is short (roughly 1-2 lines), add more bottom margin
-    return wordCount < 20 ? "mb-8" : "mb-4";
+    return "mb-6";
   };
 
   return (
@@ -454,7 +452,7 @@ const BlogCard: React.FC<BlogCardProps> = ({
           {title}
         </h3>
         <p
-          className={`text-gray-600 ${getExcerptSpacingClass()} flex-grow line-clamp-3 h-[4.5rem] overflow-hidden`}
+          className={`text-gray-600 ${getExcerptSpacingClass()} flex-grow line-clamp-3 h-[4.5rem] overflow-hidden after:content-['...'] after:inline-block`}
         >
           {excerpt}
         </p>
