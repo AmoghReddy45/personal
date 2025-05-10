@@ -85,7 +85,7 @@ const blogPostsData: Record<string, BlogPost> = {
     readTime: "5 min read",
     postTypes: ["Insight"],
     topicCategories: ["Culture", "Tech"],
-    coverImage: "/lovable-uploads/449967cf-c208-4653-90e7-94469537ef12.png"
+    coverImage: "/villa-florist.png"
   },
   "bridging-academia-and-entrepreneurship": {
     id: "bridging-academia-and-entrepreneurship",
@@ -122,7 +122,7 @@ const blogPostsData: Record<string, BlogPost> = {
     readTime: "6 min read",
     postTypes: ["Research"],
     topicCategories: ["Tech", "Culture"],
-    coverImage: "/lovable-uploads/a37abb8b-ec16-4a70-b5b1-b696a8c8cdd8.png"
+    coverImage: "/villa-florist.png"
   },
   "origin-of-biryani": {
     id: "origin-of-biryani",
@@ -171,7 +171,7 @@ const blogPostsData: Record<string, BlogPost> = {
     readTime: "8 min read",
     postTypes: ["Research"],
     topicCategories: ["History", "Culture"],
-    coverImage: "/lovable-uploads/dabbf929-5dd0-4794-a011-fe43bf4b3418.png"
+    coverImage: "/villa-florist.png"
   }
 };
 
